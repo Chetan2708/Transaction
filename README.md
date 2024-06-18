@@ -17,13 +17,13 @@ cd yourrepository
 
 
 
-Frontend
+Go to Frontend
 cd .\vite-project
 npm install
 
 
 
-Backend 
+GO to Backend 
 cd .\Backend
 npm install
 
