@@ -28,7 +28,16 @@ cd .\Backend
 npm install
 
 Start Frontend and Backend by using command
-npm run dev
+npm run dev  
+
+![image](https://github.com/Chetan2708/Transaction/assets/76566118/7f1bf32b-62f6-4dda-b9b8-646608eeb92e)
+
+![image](https://github.com/Chetan2708/Transaction/assets/76566118/500d634e-416d-442c-b417-8af08a7542cc)
+
+
+
+
+
 
 
 
