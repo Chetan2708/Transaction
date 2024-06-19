@@ -1,6 +1,6 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Button, Select, Input } from '@chakra-ui/react';
+import { Box, Select, Input } from '@chakra-ui/react';
 import 'chart.js/auto';
 import TransactionsTable from './Components/TransactionsTable';
 import useDebounce from "./hooks/useDebounce";
@@ -18,8 +18,9 @@ const Dashboard = () => {
   });
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-  const [perPage] = useState(10);
+  const [perPage] = useState(5);
   const debouncedSearch = useDebounce(search, 500);
+  const [hasNextPage, setHasNextPage] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -31,6 +32,7 @@ const Dashboard = () => {
     });
 
     setData(response.data.data);
+    setHasNextPage(response.data.data.transactions.length === perPage);
   };
 
   const handleSearchChange = (e) => {
@@ -75,9 +77,9 @@ const Dashboard = () => {
           <div>
             <h1 className='text-xl font-bold'>Page No: {page}</h1>
           </div>
-          <div>
-            <Button onClick={() => setPage(page > 1 ? page - 1 : 1)} mr={2}>Previous</Button>
-            <Button onClick={() => setPage(page + 1)}>Next</Button>
+          <div className='flex gap-4 '>
+            <button onClick={() => setPage(page > 1 ? page - 1 : 1)} className='text-xl bg-gray-50 p-4 rounded-xl' >Previous</button>
+            <button onClick={() => setPage(page + 1)} className='text-xl bg-gray-50 p-4 rounded-xl' disabled={!hasNextPage}>Next</button>
           </div>
           <div>
             <h1 className='text-xl font-bold'>Per Page: {perPage}</h1>
@@ -86,14 +88,14 @@ const Dashboard = () => {
 
         <div className='mt-10'>
           <Statistics data={data} month={month} />
-
         </div>
         <div className='flex w-full gap-10 mt-10 flex-col items-center  sm:flex-row h-96 min-h-72'>
-          
-        <BarChart data={data}/>
-
-        <PieChart data={data}/>
+          <BarChart data={data}/>
+          <PieChart data={data}/>
         </div>
+      </div>
+      <div className='text-center mt-10'>
+        <p>&copy; {new Date().getFullYear()} Chetan Gupta - 2020A1R068mietjammu.in</p>
       </div>
     </Box>
   );
