@@ -5,7 +5,7 @@ import axios from 'axios'
 import './index.css'
 import {  createBrowserRouter,RouterProvider } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react'
-axios.defaults.baseURL = "http://localhost:5000"
+axios.defaults.baseURL = "https://transactionbackend-5jyv.onrender.com"
 const router = createBrowserRouter([{
   path: '/',
   element: <Dashboard />,

@@ -13,6 +13,7 @@ const seedDatabase = asyncHandler(async (req, res) => {
   if (!products) {
     throw new ApiError(409, "No data found in API ");
   }
+  
   await Product.deleteMany({});
 
   await Product.insertMany(products);
@@ -26,6 +27,11 @@ const getAllData = asyncHandler(async (req, res) => {
   const { month, search = '', page = 1, perPage = 10 } = req.query;
   const regex = new RegExp(search, 'i'); 
   const monthNumber = parseInt(month, 10);
+ 
+  if (isNaN(monthNumber) || monthNumber < 1 || monthNumber > 12) {
+    throw new ApiError(400, "Invalid month value");
+  }
+
   try {
 
     //Transactions
@@ -99,7 +105,7 @@ const getAllData = asyncHandler(async (req, res) => {
     });
   
 
-
+//Pie chart
     const categoryCounts = transactions.reduce((acc, transaction) => {
       acc[transaction.category] = (acc[transaction.category] || 0) + 1;
       return acc;
